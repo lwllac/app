@@ -45,14 +45,12 @@ if (Config::get('session_enable')) {
 
 // form submit in progress...
 if (isset($_POST['url'])) {
-
     $url = $_POST['url'];
     $url = add_http($url);
 
     header("HTTP/1.1 302 Found");
     header('Location: ' . proxify_url($url));
     exit;
-
 } elseif (!isset($_GET['q'])) {
 
     // must be at homepage - should we redirect somewhere else?
@@ -61,7 +59,6 @@ if (isset($_POST['url'])) {
         // redirect to...
         header("HTTP/1.1 302 Found");
         header("Location: " . Config::get('index_redirect'));
-
     } else {
         echo render_template("./templates/main.php", array('version' => Proxy::VERSION));
     }
@@ -76,14 +73,12 @@ $proxy = new Proxy();
 
 // load plugins
 foreach (Config::get('plugins', array()) as $plugin) {
-
     $plugin_class = $plugin . 'Plugin';
 
     if (file_exists('./plugins/' . $plugin_class . '.php')) {
 
         // use user plugin from /plugins/
         require_once('./plugins/' . $plugin_class . '.php');
-
     } elseif (class_exists('\\Proxy\\Plugin\\' . $plugin_class)) {
 
         // does the native plugin from php-proxy package with such name exist?
@@ -109,12 +104,10 @@ try {
 
     // if that was a streaming response, then everything was already sent and script will be killed before it even reaches this line
     $response->send();
-
 } catch (Exception $ex) {
 
     // if the site is on server2.proxy.com then you may wish to redirect it back to proxy.com
     if (Config::get("error_redirect")) {
-
         $url = render_string(Config::get("error_redirect"), array(
             'error_msg' => rawurlencode($ex->getMessage())
         ));
@@ -122,14 +115,11 @@ try {
         // Cannot modify header information - headers already sent
         header("HTTP/1.1 302 Found");
         header("Location: {$url}");
-
     } else {
-
         echo render_template("./templates/main.php", array(
             'url' => $url,
             'error_msg' => $ex->getMessage(),
             'version' => Proxy::VERSION
         ));
-
     }
 }

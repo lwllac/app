@@ -8,7 +8,6 @@ class UrlFormPlugin extends AbstractPlugin
 {
     public function onCompleted(ProxyEvent $event)
     {
-
         $request = $event['request'];
         $response = $event['response'];
 
@@ -28,7 +27,6 @@ class UrlFormPlugin extends AbstractPlugin
 
         // remove favicon if so
         if (Config::get('replace_icon')) {
-
             $output = preg_replace_callback('/<link[^>]+rel=".*?(?:shortcut|icon).*?"[^>]+>/', function ($matches) {
                 return "";
             }, $output);
