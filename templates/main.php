@@ -54,7 +54,7 @@ html body {
 		<h1 style="color:blue;">PHP-Proxy</h1>
 	</div>
 	
-	<?php if(isset($error_msg)){ ?>
+	<?php if (isset($error_msg)) { ?>
 	
 	<div id="error">
 		<p><?php echo strip_tags($error_msg); ?></p>
