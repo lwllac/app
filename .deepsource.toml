@@ -6,3 +6,7 @@ enabled = true
 
   [analyzers.meta]
   bootstrap_files = ["21"]
+
+[[transformers]]
+name = "php-cs-fixer"
+enabled = true
